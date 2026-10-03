@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASTRAETHOS 2026 | IEEE SSIT Vel Tech</title>
+<meta name="description" content="ASTRAETHOS 2026 — astronomy, robotics and technology challenge by IEEE SSIT Student Branch Chapter, Vel Tech. 10 October 2026. Explore. Decode. Engineer.">
+<meta property="og:title" content="ASTRAETHOS 2026 | IEEE SSIT Vel Tech">
+<meta property="og:description" content="A three-phase mission: astronomy quiz, visual puzzle decode, rover concept for humanity. 10 OCT 2026 — teams of 2, 25 teams max.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#050B14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+/* ================= TOKENS ================= */
+:root{
+  --bg:#050B14; --bg2:#0A1526;
+  --ice:#F4F8FF; --dim:#8FA3BF; --dim2:#5C718F;
+  --cyan:#19D3FF; --violet:#8A5CFF;
+  --line:rgba(125,175,225,.16); --line2:rgba(125,175,225,.3);
+  --glass:linear-gradient(160deg,rgba(16,30,54,.72),rgba(8,16,32,.6));
+  --disp:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --r:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--bg);color:var(--ice);font:400 16px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+::selection{background:var(--cyan);color:#04101D}
+a{color:inherit}
+img,svg{display:block}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.mono{font-family:var(--mono)}
+h1,h2,h3{font-family:var(--disp);line-height:1.05;font-weight:700}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#1B2C47;border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--cyan)}
+.skip{position:fixed;left:16px;top:-60px;z-index:200;background:var(--cyan);color:#04101D;font:700 12px var(--mono);padding:10px 16px;border-radius:8px;transition:top .2s;text-decoration:none}
+.skip:focus{top:16px}
+
+/* ambient tints + grid */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+   radial-gradient(60vw 60vw at 12% -10%,rgba(25,211,255,.07),transparent 60%),
+   radial-gradient(70vw 70vw at 105% 110%,rgba(138,92,255,.08),transparent 60%)}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(125,175,225,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(125,175,225,.05) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(80% 60% at 50% 0%,#000 30%,transparent 100%)}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+main,footer,header{position:relative;z-index:1}
+
+.wrap{width:min(1180px,100% - 44px);margin-inline:auto}
+section{padding:clamp(72px,10vh,120px) 0}
+
+/* ================= HEADER ================= */
+#hd{position:fixed;inset:0 0 auto;z-index:100;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+#hd.scrolled{background:rgba(5,11,20,.82);backdrop-filter:blur(14px);border-color:var(--line)}
+.hd-in{width:min(1320px,100% - 40px);margin-inline:auto;display:flex;align-items:center;gap:26px;height:66px}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;flex:none}
+.lg-mark{width:30px;height:30px}
+.lg-txt{font:700 15px/1 var(--disp);letter-spacing:.14em}
+.lg-txt b{color:var(--cyan);font-weight:700;margin-left:5px}
+#nv{display:flex;gap:4px;margin-inline:auto}
+#nv a{font:500 12px/1 var(--disp);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--dim);padding:10px 13px;border-radius:8px;transition:.2s}
+#nv a:hover{color:var(--ice);background:rgba(125,175,225,.08)}
+#nv a.cur{color:var(--cyan)}
+.hd-right{display:flex;align-items:center;gap:16px;flex:none}
+.hd-status{display:flex;align-items:center;gap:8px;font:400 10px var(--mono);letter-spacing:.14em;color:var(--dim)}
+.hd-status i{width:8px;height:8px;border-radius:50%;background:#2BD97C;box-shadow:0 0 10px #2BD97C;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+#burger{display:none;width:40px;height:40px;position:relative;z-index:110}
+#burger span{position:absolute;left:9px;right:9px;height:2px;background:var(--ice);transition:.3s}
+#burger span:nth-child(1){top:13px}#burger span:nth-child(2){top:19px}#burger span:nth-child(3){top:25px}
+body.menu-open #burger span:nth-child(1){top:19px;transform:rotate(45deg)}
+body.menu-open #burger span:nth-child(2){opacity:0}
+body.menu-open #burger span:nth-child(3){top:19px;transform:rotate(-45deg)}
+#mnav{position:fixed;inset:0;z-index:105;background:rgba(5,11,20,.96);backdrop-filter:blur(16px);display:flex;flex-direction:column;justify-content:center;padding:0 8vw;gap:4px;opacity:0;visibility:hidden;transition:.35s}
+body.menu-open #mnav{opacity:1;visibility:visible}
+body.menu-open{overflow:hidden}
+#mnav a{font:700 clamp(28px,8vw,40px)/1.2 var(--disp);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+#mnav a i{font:400 11px var(--mono);color:var(--cyan);font-style:normal;letter-spacing:.2em}
+#mnav .m-foot{margin-top:26px;font:400 11px var(--mono);letter-spacing:.14em;color:var(--dim);display:flex;flex-direction:column;gap:8px}
+
+/* ================= BUTTONS ================= */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font:600 12px/1 var(--disp);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;padding:15px 24px;border-radius:10px;border:1px solid transparent;transition:transform .18s,box-shadow .18s,filter .18s,border-color .18s,background .18s;white-space:nowrap}
+.btn svg{width:15px;height:15px;flex:none}
+.btn-c{background:var(--cyan);color:#04101D}
+.btn-c:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(25,211,255,.35);filter:brightness(1.06)}
+.btn-g{border-color:rgba(244,248,255,.28);color:var(--ice)}
+.btn-g:hover{transform:translateY(-2px);border-color:var(--cyan);box-shadow:0 8px 24px rgba(25,211,255,.15)}
+.btn-v{background:var(--violet);color:#fff}
+.btn-v:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(138,92,255,.4);filter:brightness(1.08)}
+.btn-l{padding:18px 30px;font-size:13px}
+
+/* ================= SECTION HEADERS ================= */
+.kick{display:inline-flex;align-items:center;gap:12px;font:700 10.5px var(--mono);letter-spacing:.3em;color:var(--cyan);text-transform:uppercase;margin-bottom:18px}
+.kick::before{content:"";width:34px;height:1px;background:var(--cyan)}
+.sec-head h2{font-size:clamp(30px,4.6vw,54px);letter-spacing:-.01em;text-transform:uppercase}
+.sec-head .lede{color:var(--dim);max-width:62ch;margin-top:14px;font-size:clamp(15px,1.4vw,17px)}
+
+/* ================= REVEAL ================= */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease var(--d,0s),transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(12px)}
+
+/* ================= HERO ================= */
+.hero{min-height:100svh;display:grid;place-items:center;position:relative;padding:110px 0 70px;overflow:hidden}
+.scan{position:absolute;left:0;right:0;top:-15%;height:130px;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(25,211,255,.08) 55%,rgba(25,211,255,.16) 60%,transparent);animation:scan 2.6s ease-out .4s 1 both}
+@keyframes scan{to{top:115%;opacity:0}}
+.sky{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.planet{position:relative;width:min(62vmin,540px);aspect-ratio:1;border-radius:50%;margin-top:8vh;
+  background:radial-gradient(circle at 34% 28%,#173352 0%,#0C1D36 46%,#050D1A 78%);
+  box-shadow:inset -34px -34px 90px rgba(0,0,0,.65),inset 10px 10px 50px rgba(25,211,255,.08),0 0 90px rgba(25,211,255,.12),0 0 180px rgba(138,92,255,.08)}
+.ring{position:absolute;top:50%;left:50%;border-radius:50%;transform:translate(-50%,-50%) rotate(-18deg)}
+.r1{width:138%;height:34%;border:1px solid rgba(25,211,255,.35);box-shadow:0 0 18px rgba(25,211,255,.12)}
+.r2{width:172%;height:44%;border:1px dashed rgba(138,92,255,.4);animation:rspin 70s linear infinite}
+@keyframes rspin{from{transform:translate(-50%,-50%) rotate(-18deg)}to{transform:translate(-50%,-50%) rotate(342deg)}}
+.orb{position:absolute;border-radius:50%}
+.orb.o1{inset:-16%;animation:spin 28s linear infinite}
+.orb.o2{inset:-32%;animation:spin 46s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.moon{position:absolute;top:-4px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+.o2 .moon{background:var(--violet);box-shadow:0 0 12px var(--violet)}
+.hud{position:absolute;inset:0;pointer-events:none;font:400 10px/1.9 var(--mono);letter-spacing:.18em;color:var(--dim2)}
+.hud .cnr{position:absolute;width:22px;height:22px;border:1px solid rgba(25,211,255,.4)}
+.hud .c1{top:92px;left:26px;border-right:0;border-bottom:0}
+.hud .c2{top:92px;right:26px;border-left:0;border-bottom:0}
+.hud .c3{bottom:26px;left:26px;border-right:0;border-top:0}
+.hud .c4{bottom:26px;right:26px;border-left:0;border-top:0}
+.hud-l{position:absolute;left:34px;top:50%;transform:translateY(-50%);animation:hudp 4s infinite}
+.hud-r{position:absolute;right:34px;top:50%;transform:translateY(-50%);text-align:right;animation:hudp 4s infinite 2s}
+@keyframes hudp{0%,100%{opacity:.65}50%{opacity:1}}
+.hud b{color:var(--cyan);font-weight:400}
+.hero-in{position:relative;text-align:center;padding:0 22px;max-width:980px}
+.rv-l{opacity:0;animation:lup .85s cubic-bezier(.2,.7,.2,1) var(--d,0s) forwards}
+@keyframes lup{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:clamp(10px,1.3vw,12px);letter-spacing:.42em;color:var(--dim);text-transform:uppercase;margin-bottom:26px}
+.title{display:flex;flex-direction:column;align-items:center;gap:2px;margin-bottom:26px}
+.t1{font-size:clamp(44px,10.5vw,124px);font-weight:700;letter-spacing:.02em;line-height:.95;text-shadow:0 0 60px rgba(25,211,255,.25)}
+.t2{font-size:clamp(34px,7.4vw,86px);font-weight:700;letter-spacing:.34em;margin-left:.34em;color:transparent;-webkit-text-stroke:2px var(--cyan);filter:drop-shadow(0 0 18px rgba(25,211,255,.3))}
+.subtitle{font:600 clamp(12px,1.8vw,18px)/1.4 var(--disp);letter-spacing:.3em;text-transform:uppercase;color:var(--ice)}
+.subtitle i{font-style:normal;color:var(--violet);margin:0 .5em}
+.tagline{margin-top:14px;font-size:clamp(11px,1.4vw,14px);letter-spacing:.5em;color:var(--cyan);text-transform:uppercase}
+.hero-cta{display:flex;gap:14px;justify-content:center;margin-top:38px;flex-wrap:wrap}
+.strip{display:inline-flex;flex-wrap:wrap;justify-content:center;margin-top:36px;border:1px solid var(--line2);border-radius:10px;overflow:hidden;font-size:10.5px;letter-spacing:.2em;color:var(--dim)}
+.strip span{padding:12px 20px;border-right:1px solid var(--line)}
+.strip span:last-child{border-right:0}
+.strip b{color:var(--cyan);font-weight:400}
+.scroll-cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;font-size:9px;letter-spacing:.34em;color:var(--dim2);text-decoration:none;transition:.2s}
+.scroll-cue:hover{color:var(--cyan)}
+.scroll-cue svg{width:16px;height:16px;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{50%{transform:translateY(6px)}}
+
+/* ================= MISSION INTRO ================= */
+.mission-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center;margin-top:14px}
+.statement{font:500 clamp(19px,2.2vw,27px)/1.55 var(--disp);color:var(--ice)}
+.statement b{color:var(--cyan);font-weight:600}
+.statement em{color:var(--violet);font-style:normal}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.chip{display:inline-flex;align-items:center;gap:9px;font:700 10.5px var(--mono);letter-spacing:.22em;padding:11px 16px;border:1px solid var(--line2);border-radius:99px;color:var(--dim);transition:.2s}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);flex:none}
+.chip:nth-child(2) i{background:var(--violet);box-shadow:0 0 8px var(--violet)}
+.chip:nth-child(3) i{background:#2BD97C;box-shadow:0 0 8px #2BD97C}
+.chip:nth-child(4) i{background:var(--ice);box-shadow:0 0 8px var(--ice)}
+.chip:hover{border-color:var(--cyan);color:var(--ice);transform:translateY(-2px)}
+.orbit-panel{aspect-ratio:1;max-width:480px;width:100%;margin-inline:auto;display:grid;place-items:center;position:relative}
+.orbit-panel svg{width:100%;height:auto;overflow:visible}
+.o-ring{fill:none}
+.o-rot{transform-origin:240px 240px;animation:spin var(--sp,40s) linear infinite}
+.o-rot.rev{animation-direction:reverse}
+.o-core{fill:var(--cyan);filter:drop-shadow(0 0 14px rgba(25,211,255,.8))}
+.o-node{filter:drop-shadow(0 0 8px currentColor)}
+.o-lab{font:700 11px var(--mono);letter-spacing:.24em;fill:var(--dim)}
+
+/* ================= COUNTDOWN + STATS ================= */
+.cd-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:760px;margin:38px auto 0}
+.cd{padding:26px 10px;text-align:center;position:relative;overflow:hidden}
+.cd::after{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,var(--cyan),var(--violet));opacity:.7}
+.cd b{display:block;font:700 clamp(38px,6vw,58px)/1 var(--disp);font-variant-numeric:tabular-nums;color:var(--ice)}
+.cd span{display:block;margin-top:10px;font:700 9.5px var(--mono);letter-spacing:.34em;color:var(--dim)}
+.cd-status{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:26px;font-size:10.5px;letter-spacing:.26em;color:var(--dim)}
+.cd-status i{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s infinite}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:56px}
+.stat{padding:26px 24px;position:relative;transition:transform .2s,border-color .2s}
+.stat:hover{transform:translateY(-4px);border-color:rgba(25,211,255,.4)}
+.stat .idx{font:700 9px var(--mono);letter-spacing:.3em;color:var(--dim2)}
+.stat b{display:block;font:700 clamp(38px,4.4vw,54px)/1 var(--disp);margin-top:14px;color:var(--cyan);font-variant-numeric:tabular-nums}
+.stat:nth-child(even) b{color:var(--violet)}
+.stat span{display:block;margin-top:10px;font:700 9.5px var(--mono);letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
+
+/* ================= PHASES ================= */
+.phases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
+.ph{position:relative;padding:32px 26px;min-height:430px;display:flex;flex-direction:column;overflow:hidden;--pc:var(--cyan);transition:transform .25s,border-color .25s,box-shadow .25s;cursor:pointer;text-align:left}
+.ph-a{--pc:var(--cyan)}.ph-b{--pc:var(--violet)}.ph-c{--pc:var(--ice)}
+.ph:hover{transform:translateY(-7px);border-color:color-mix(in srgb,var(--pc) 55%,transparent);box-shadow:0 24px 60px -18px color-mix(in srgb,var(--pc) 30%,transparent)}
+.ph-letter{position:absolute;top:-30px;right:-14px;font:700 230px/1 var(--disp);color:color-mix(in srgb,var(--pc) 6%,transparent);-webkit-text-stroke:1px color-mix(in srgb,var(--pc) 28%,transparent);pointer-events:none;transition:transform .3s;user-select:none}
+.ph:hover .ph-letter{transform:translate(-8px,-6px) rotate(-3deg)}
+.ph-tag{font:700 9.5px var(--mono);letter-spacing:.3em;color:var(--pc);text-transform:uppercase}
+.ph-icon{width:46px;height:46px;margin-top:22px;color:var(--pc);transition:transform .3s}
+.ph-icon svg{width:100%;height:100%}
+.ph:hover .ph-icon{transform:scale(1.1) rotate(-4deg)}
+.ph h3{font-size:clamp(21px,1.9vw,26px);letter-spacing:.02em;text-transform:uppercase;margin-top:16px}
+.ph .one{color:var(--dim);font-size:14.5px;margin-top:12px;flex:1}
+.ph-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.ph-meta span{font:700 10px var(--mono);letter-spacing:.14em;padding:8px 12px;border:1px solid var(--line);border-radius:8px;color:var(--dim)}
+.ph-meta b{color:var(--pc);font-weight:400}
+.pm{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font:700 11px var(--mono);letter-spacing:.22em;color:var(--pc);text-transform:uppercase}
+.pm svg{width:14px;height:14px;transition:transform .2s}
+.ph:hover .pm svg{transform:translateX(5px)}
+
+/* phase overlay */
+#ovl{position:fixed;inset:0;z-index:150;display:grid;place-items:center;padding:20px;opacity:0;visibility:hidden;transition:.3s}
+#ovl.open{opacity:1;visibility:visible}
+#ovl .ov-bg{position:absolute;inset:0;background:rgba(3,7,14,.7);backdrop-filter:blur(10px)}
+.ov-panel{position:relative;width:min(860px,100%);max-height:88svh;overflow-y:auto;padding:clamp(26px,4vw,46px);border-color:color-mix(in srgb,var(--pc,var(--cyan)) 40%,transparent);box-shadow:0 30px 90px rgba(0,0,0,.6),0 0 60px color-mix(in srgb,var(--pc,var(--cyan)) 12%,transparent);transform:translateY(24px) scale(.98);transition:transform .35s cubic-bezier(.2,.8,.2,1);--pc:var(--cyan)}
+#ovl.open .ov-panel{transform:none}
+.ov-close{position:absolute;top:16px;right:16px;width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--line2);border-radius:10px;color:var(--dim);transition:.2s}
+.ov-close:hover{color:var(--ice);border-color:var(--cyan);transform:rotate(90deg)}
+.ov-head{display:flex;align-items:flex-start;gap:22px}
+.ov-letter{font:700 clamp(64px,8vw,96px)/0.9 var(--disp);color:transparent;-webkit-text-stroke:2px var(--pc)}
+.ov-kick{font:700 10px var(--mono);letter-spacing:.3em;color:var(--pc);text-transform:uppercase;margin-bottom:8px}
+.ov-head h3{font-size:clamp(24px,3.4vw,36px);text-transform:uppercase;letter-spacing:.01em}
+.ov-meta{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+.ov-meta span{font:700 10.5px var(--mono);letter-spacing:.16em;padding:10px 14px;border:1px solid var(--line);border-radius:8px;color:var(--dim)}
+.ov-meta b{color:var(--pc);font-weight:400}
+.ov-desc{color:var(--dim);font-size:15.5px}
+.ov-desc p+p{margin-top:12px}
+.ov-sub{font:700 10.5px var(--mono);letter-spacing:.3em;color:var(--ice);text-transform:uppercase;margin:30px 0 14px;display:flex;align-items:center;gap:12px}
+.ov-sub::after{content:"";flex:1;height:1px;background:var(--line)}
+.ov-list{list-style:none;display:grid;gap:10px}
+.ov-list li{display:flex;gap:12px;font-size:14.5px;color:var(--dim)}
+.ov-list li::before{content:"▸";color:var(--pc);flex:none}
+.sbar{margin-top:12px}
+.sbar .sr{display:grid;grid-template-columns:1fr auto;gap:4px 14px;font:400 11px var(--mono);letter-spacing:.08em;color:var(--dim);margin-bottom:4px}
+.sbar .sr b{color:var(--pc);font-weight:400}
+.sbar .bar{grid-column:1/-1;height:6px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;margin-bottom:12px}
+.sbar .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--pc),color-mix(in srgb,var(--pc) 40%,#fff));box-shadow:0 0 10px color-mix(in srgb,var(--pc) 60%,transparent)}
+.ov-note{margin-top:26px;padding:14px 16px;border-left:2px solid var(--pc);background:color-mix(in srgb,var(--pc) 6%,transparent);font:400 11.5px/1.7 var(--mono);letter-spacing:.06em;color:var(--dim)}
+
+/* ================= TIMELINE ================= */
+.tl-wrap{position:relative;margin-top:56px}
+.tl-line{position:absolute;left:0;right:0;top:37px;height:2px;background:rgba(125,175,225,.18);border-radius:99px}
+#tlFill{position:absolute;left:0;top:0;bottom:0;width:var(--p,0%);background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:99px;box-shadow:0 0 14px rgba(25,211,255,.6);transition:width .15s linear}
+.tl{list-style:none;display:flex;position:relative}
+.tl-item{flex:1;min-width:0;text-align:center;display:flex;flex-direction:column;align-items:center;padding:0 4px}
+.tt{font:700 12px var(--mono);letter-spacing:.1em;color:var(--ice);height:22px}
+.dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--dim2);background:var(--bg);margin:10px 0 12px;transition:.3s;position:relative;z-index:1}
+.tl-label{font:400 10px/1.5 var(--mono);letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+.tl-item.t-a .dot{border-color:var(--cyan)}
+.tl-item.t-b .dot{border-color:var(--violet)}
+.tl-item.t-c .dot{border-color:var(--ice)}
+.tl-item.lit .dot{background:var(--tc,var(--cyan));border-color:var(--tc,var(--cyan));box-shadow:0 0 14px var(--tc,var(--cyan))}
+.tl-item.t-a{--tc:var(--cyan)}.tl-item.t-b{--tc:var(--violet)}.tl-item.t-c{--tc:var(--ice)}
+.tl-item:not(.t-a):not(.t-b):not(.t-c){--tc:#5C718F}
+.tl-note{margin-top:34px;display:flex;gap:22px;flex-wrap:wrap;font:400 10px var(--mono);letter-spacing:.18em;color:var(--dim2)}
+.tl-note i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
+
+/* ================= REGISTER ================= */
+.reg-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(26px,4vw,56px);margin-top:46px;align-items:start}
+.reg-info{display:flex;flex-direction:column;gap:22px}
+.reg-chips{display:flex;flex-wrap:wrap;gap:10px}
+.reg-chips span{font:700 10.5px var(--mono);letter-spacing:.18em;padding:12px 16px;border:1px solid var(--line2);border-radius:10px;color:var(--dim)}
+.reg-chips b{color:var(--cyan);font-weight:400}
+.slots{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.slots i{width:14px;height:14px;border:1px solid var(--line2);border-radius:4px;background:rgba(25,211,255,.1)}
+.slots-cap{font:400 10px var(--mono);letter-spacing:.2em;color:var(--dim2);margin-top:10px}
+.qr-card{display:flex;gap:20px;align-items:center;padding:20px}
+#qr{background:#F4F8FF;padding:9px;border-radius:10px;width:150px;height:150px;display:grid;place-items:center;flex:none}
+#qr img,#qr canvas{width:132px!important;height:132px!important}
+.qr-t{font:700 11px var(--mono);letter-spacing:.2em;color:var(--ice);text-transform:uppercase;line-height:1.7}
+.qr-t small{display:block;font:400 10px/1.7 var(--mono);color:var(--dim);letter-spacing:.08em;margin-top:8px;text-transform:none}
+.reg-right{display:flex;flex-direction:column;gap:16px}
+.form-card{padding:clamp(24px,3vw,36px)}
+.form-card h3{font-size:19px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.form-card h3 svg{width:20px;height:20px;color:var(--cyan);flex:none}
+.gform-lede{color:var(--dim);font-size:14.5px;margin-top:12px}
+.gform-actions{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
+.gform-note2{margin-top:12px;font:400 10px var(--mono);letter-spacing:.18em;color:var(--dim2);text-transform:uppercase}
+.gform-points{list-style:none;margin-top:22px;border-top:1px solid var(--line);padding-top:10px}
+.gform-points li{display:flex;gap:12px;padding:9px 0;font:400 11.5px var(--mono);letter-spacing:.08em;color:var(--dim);border-bottom:1px dashed var(--line)}
+.gform-points li::before{content:"▸";color:var(--cyan);flex:none}
+.alt-console{overflow:hidden}
+.alt-console summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 22px;font:600 12.5px var(--disp);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);transition:.2s}
+.alt-console summary::-webkit-details-marker{display:none}
+.alt-console summary:hover{color:var(--cyan)}
+.alt-console summary .alt-tag{font:700 8.5px var(--mono);letter-spacing:.22em;color:var(--violet);border:1px solid var(--line2);padding:5px 9px;border-radius:6px;flex:none}
+.alt-console .alt-body{padding:2px 22px 24px}
+fieldset{border:0;margin-top:26px}
+legend{font:700 10px var(--mono);letter-spacing:.3em;color:var(--violet);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+legend::after{content:"";flex:1;height:1px;background:var(--line)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fld{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.fld label{font:700 9px var(--mono);letter-spacing:.26em;color:var(--dim);text-transform:uppercase}
+.fld input,.fld select{background:rgba(8,16,32,.6);border:1px solid var(--line2);border-radius:9px;color:var(--ice);font:400 14.5px var(--body);padding:13px 14px;transition:.2s;width:100%}
+.fld input::placeholder{color:var(--dim2)}
+.fld input:focus,.fld select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(25,211,255,.12)}
+.fld input.err{border-color:#FF5470;box-shadow:0 0 0 3px rgba(255,84,112,.12)}
+.fld select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238FA3BF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.form-foot{margin-top:8px;display:flex;flex-direction:column;gap:14px}
+.form-note{font:400 10.5px/1.7 var(--mono);letter-spacing:.06em;color:var(--dim2)}
+#regDone{display:none;padding:clamp(26px,4vw,40px);text-align:center}
+#regDone.show{display:block}
+.done-ic{width:64px;height:64px;margin:0 auto 20px;border-radius:50%;border:1px solid var(--cyan);display:grid;place-items:center;color:var(--cyan);box-shadow:0 0 30px rgba(25,211,255,.25)}
+.done-ic svg{width:28px;height:28px}
+#regDone h3{font-size:22px;letter-spacing:.06em;text-transform:uppercase;justify-content:center}
+#regDone p{color:var(--dim);font-size:14.5px;margin-top:10px}
+#sumList{list-style:none;margin:22px auto;max-width:440px;text-align:left;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+#sumList li{display:flex;justify-content:space-between;gap:14px;padding:11px 16px;font:400 12px var(--mono);letter-spacing:.04em;border-bottom:1px solid var(--line);color:var(--dim)}
+#sumList li:last-child{border-bottom:0}
+#sumList li b{color:var(--ice);font-weight:400;text-align:right;word-break:break-word}
+.done-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+
+/* ================= RULES ================= */
+.rules-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:46px}
+.rule-card{padding:clamp(24px,3vw,36px)}
+.rule-card h3{font-size:18px;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.rule-card h3 svg{width:20px;height:20px;color:var(--cyan);flex:none}
+.rule-card.tie h3 svg{color:var(--violet)}
+.rule-list{list-style:none;display:grid;gap:0}
+.rule-list li{display:flex;gap:16px;padding:13px 2px;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--dim);align-items:baseline}
+.rule-list li:last-child{border-bottom:0}
+.rule-list li b{font:700 10px var(--mono);color:var(--cyan);letter-spacing:.1em;flex:none}
+.rule-card.tie .rule-list li b{color:var(--violet)}
+.score-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.sc{padding:20px;text-align:center}
+.sc b{font:700 clamp(24px,2.6vw,34px)/1 var(--disp);color:var(--cyan)}
+.sc:nth-child(2) b{color:var(--violet)}
+.sc:nth-child(3) b{color:var(--ice)}
+.sc:last-child b{color:var(--cyan)}
+.sc span{display:block;margin-top:8px;font:700 8.5px var(--mono);letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
+
+/* ================= ORGANIZER ================= */
+.org-card{margin-top:46px;padding:clamp(28px,4vw,48px);display:grid;grid-template-columns:auto 1fr auto;gap:clamp(22px,4vw,50px);align-items:center}
+.org-lock{font-family:var(--disp);line-height:1.05}
+.org-lock b{display:block;font-size:clamp(30px,3.6vw,44px);font-weight:700;letter-spacing:.04em}
+.org-lock b i{font-style:normal;color:var(--cyan)}
+.org-lock span{display:block;font:700 10px var(--mono);letter-spacing:.3em;color:var(--dim);margin-top:10px;text-transform:uppercase}
+.org-blurb{color:var(--dim);font-size:14.5px;max-width:52ch}
+.org-links{display:flex;flex-direction:column;gap:10px}
+.org-links a{font:700 10.5px var(--mono);letter-spacing:.16em;text-decoration:none;color:var(--dim);border:1px solid var(--line2);border-radius:9px;padding:11px 16px;display:inline-flex;align-items:center;gap:9px;transition:.2s;text-transform:uppercase}
+.org-links a:hover{color:var(--cyan);border-color:var(--cyan);transform:translateY(-2px)}
+.org-links svg{width:13px;height:13px}
+
+/* ================= COORDINATORS + FAQ + CONTACT ================= */
+.coords-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:46px}
+.coord{padding:26px 24px;display:flex;flex-direction:column;align-items:flex-start;transition:transform .2s,border-color .2s}
+.coord:hover{transform:translateY(-4px);border-color:rgba(25,211,255,.4)}
+.coord-idx{font:700 9px var(--mono);letter-spacing:.3em;color:var(--dim2)}
+.coord h3{font-size:clamp(18px,1.8vw,21px);letter-spacing:.02em;margin-top:14px;text-transform:uppercase}
+.coord-role{font:700 9.5px var(--mono);letter-spacing:.26em;color:var(--cyan);text-transform:uppercase;margin-top:8px}
+.coord-sub{color:var(--dim);font-size:13px;margin-top:5px}
+.coord-tel{display:inline-flex;align-items:center;gap:9px;margin-top:18px;font:700 12px var(--mono);letter-spacing:.08em;color:var(--cyan);text-decoration:none;border:1px solid var(--line2);border-radius:9px;padding:11px 14px;transition:.2s}
+.coord-tel:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.coord-tel svg{width:13px;height:13px}
+.fc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(26px,4vw,56px);margin-top:18px;align-items:start}
+.faq{display:grid;gap:10px}
+.faq details{border:1px solid var(--line);border-radius:12px;background:var(--glass);overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 20px;font:600 14.5px var(--disp);letter-spacing:.03em;transition:.2s}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{color:var(--cyan)}
+.faq summary .pmx{flex:none;width:22px;height:22px;position:relative}
+.faq summary .pmx::before,.faq summary .pmx::after{content:"";position:absolute;background:var(--cyan);top:50%;left:50%;transition:.25s}
+.faq summary .pmx::before{width:12px;height:2px;transform:translate(-50%,-50%)}
+.faq summary .pmx::after{width:2px;height:12px;transform:translate(-50%,-50%)}
+.faq details[open] summary .pmx::after{transform:translate(-50%,-50%) scaleY(0)}
+.faq details[open] summary{color:var(--cyan);border-bottom:1px solid var(--line)}
+.faq .fa{padding:4px 20px 18px;color:var(--dim);font-size:14px}
+.contact-card{padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:8px}
+.contact-card h3{font-size:18px;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.contact-card h3 svg{width:20px;height:20px;color:var(--cyan)}
+.c-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--dim)}
+.c-row:last-of-type{border-bottom:0}
+.c-row svg{width:17px;height:17px;color:var(--cyan);flex:none;margin-top:3px}
+.c-row b{color:var(--ice);font-weight:500}
+.c-row a{color:var(--cyan);text-decoration:none;word-break:break-all}
+.c-row a:hover{text-decoration:underline}
+.c-cta{margin-top:20px}
+
+/* ================= FOOTER ================= */
+footer{border-top:1px solid var(--line);padding:60px 0 34px;background:rgba(4,8,16,.6)}
+.ft{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.ft-mark{display:flex;align-items:center;gap:12px;font:700 18px var(--disp);letter-spacing:.14em}
+.ft-mark b{color:var(--cyan)}
+.ft-tag{font:700 10px var(--mono);letter-spacing:.5em;color:var(--cyan);text-transform:uppercase;margin-top:4px}
+.ft-org{color:var(--dim);font-size:13px;margin-top:8px}
+.ft-cta{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:13px}
+.ft-cta-t{font:700 13px var(--disp);letter-spacing:.32em;text-transform:uppercase}
+.ft-cta-s{font:400 10px var(--mono);letter-spacing:.22em;color:var(--dim2)}
+.ft-links{display:flex;flex-wrap:wrap;gap:4px 22px;justify-content:center;margin-top:22px}
+.ft-links a{font:500 11px var(--mono);letter-spacing:.2em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:.2s;padding:6px 2px}
+.ft-links a:hover{color:var(--cyan)}
+.ft-mail{margin-top:16px;font:400 12px var(--mono);letter-spacing:.08em;color:var(--dim)}
+.ft-mail a{color:var(--cyan);text-decoration:none;border-bottom:1px solid transparent;transition:.2s;word-break:break-all}
+.ft-mail a:hover{border-color:var(--cyan)}
+.ft-base{margin-top:30px;padding-top:22px;border-top:1px solid var(--line);width:min(1180px,100%);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:400 10px var(--mono);letter-spacing:.24em;color:var(--dim2);text-transform:uppercase}
+
+/* ================= TOASTS ================= */
+#toasts{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:max-content;max-width:92vw}
+.toast{background:rgba(8,16,32,.92);border:1px solid rgba(25,211,255,.4);color:var(--ice);font:700 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:13px 20px;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.5),0 0 20px rgba(25,211,255,.12);opacity:0;transform:translateY(12px);transition:.35s;backdrop-filter:blur(8px)}
+.toast.on{opacity:1;transform:none}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:1020px){
+  .hud-l,.hud-r{display:none}
+  .stats{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:900px){
+  #nv,.hd-status{display:none}
+  #burger{display:block}
+  .mission-grid,.reg-grid,.rules-grid,.fc-grid{grid-template-columns:1fr}
+  .phases-grid{grid-template-columns:1fr;max-width:520px;margin-inline:auto}
+  .ph{min-height:0}
+  .coords-grid{grid-template-columns:1fr;max-width:520px;margin-inline:auto}
+  .org-card{grid-template-columns:1fr;text-align:center;justify-items:center}
+  .org-links{flex-direction:row;flex-wrap:wrap;justify-content:center}
+  .orbit-panel{max-width:360px}
+  /* vertical timeline */
+  .tl-line{left:57px;right:auto;top:6px;bottom:6px;width:2px;height:auto}
+  #tlFill{width:2px;height:var(--p,0%);background:linear-gradient(180deg,var(--cyan),var(--violet))}
+  .tl{flex-direction:column;gap:26px}
+  .tl-item{flex-direction:row;text-align:left;align-items:flex-start;gap:0;display:grid;grid-template-columns:46px 22px 1fr}
+  .tt{height:auto;padding-top:0;font-size:11px}
+  .dot{margin:4px 0 0;justify-self:center}
+  .tl-label{padding-top:1px}
+  .tl-note{display:none}
+  .cd-row{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .cd{padding:18px 6px}
+  .f2{grid-template-columns:1fr}
+  .score-strip{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .cd-row{grid-template-columns:repeat(2,1fr)}
+  .cd b{font-size:34px}
+  .strip span{padding:10px 12px;font-size:9.5px}
+  .qr-card{flex-direction:column;text-align:center}
+  .hero-cta .btn{width:100%;max-width:320px}
+  .hd-in .btn{padding:11px 14px;font-size:10.5px;letter-spacing:.12em}
+  .hd-in{gap:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  .rv-l{opacity:1;animation:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to mission content</a>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div id="toasts" aria-live="polite"></div>
+
+<!-- ============ NAVIGATION ============ -->
+<header id="hd">
+  <div class="hd-in">
+    <a href="#top" class="logo" aria-label="ASTRAETHOS 2026 — home">
+      <svg class="lg-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="6" fill="#19D3FF"/>
+        <ellipse cx="20" cy="20" rx="17" ry="6.5" fill="none" stroke="#8A5CFF" stroke-width="1.6" transform="rotate(-22 20 20)"/>
+        <circle cx="33.5" cy="13.5" r="2.2" fill="#19D3FF"/>
+      </svg>
+      <span class="lg-txt">ASTRAETHOS<b>2026</b></span>
+    </a>
+    <nav id="nv" aria-label="Primary">
+      <a href="#mission">Mission</a>
+      <a href="#phases">Phases</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#rules">Rules</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="hd-right">
+      <span class="hd-status"><i></i><span id="rsTop">REGISTRATION OPEN</span></span>
+      <a href="#" class="btn btn-c js-gform" aria-label="Register via Google Form — opens in a new tab">Register</a>
+      <button id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div id="mnav" aria-label="Mobile menu">
+  <a href="#mission">Mission<i>01</i></a>
+  <a href="#phases">Phases<i>02</i></a>
+  <a href="#timeline">Timeline<i>03</i></a>
+  <a href="#rules">Rules<i>04</i></a>
+  <a href="#" class="js-gform">Register<i>GO ↗</i></a>
+  <a href="#contact">Contact<i>06</i></a>
+  <div class="m-foot">
+    <span>10 OCT 2026 — 09:00 IST · GALLERY HALL (1601)</span>
+    <span>IEEE SSIT SBC — VEL TECH</span>
+    <span style="color:var(--cyan)">EXPLORE. DECODE. ENGINEER.</span>
+  </div>
+</div>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="hero" id="top" aria-label="ASTRAETHOS 2026">
+  <div class="scan" aria-hidden="true"></div>
+  <div class="sky" aria-hidden="true">
+    <div class="planet">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="orb o1"><div class="moon"></div></div>
+      <div class="orb o2"><div class="moon"></div></div>
+    </div>
+  </div>
+  <div class="hud" aria-hidden="true">
+    <span class="cnr c1"></span><span class="cnr c2"></span><span class="cnr c3"></span><span class="cnr c4"></span>
+    <div class="hud-l">LAT&nbsp;&nbsp;13.1143° N<br>LON&nbsp;&nbsp;80.1013° E<br>GRID&nbsp;VT-CHENNAI-01</div>
+    <div class="hud-r">LOCAL&nbsp;<b id="hudClock">--:--:--</b>&nbsp;IST<br>SYS&nbsp;<b>NOMINAL</b><br>LINK&nbsp;<b>STABLE</b></div>
+  </div>
+  <div class="hero-in" id="heroIn">
+    <p class="eyebrow mono rv-l" style="--d:.05s">IEEE SSIT Student Branch Chapter presents</p>
+    <h1 class="title">
+      <span class="t1 rv-l" style="--d:.18s">ASTRAETHOS</span>
+      <span class="t2 rv-l" style="--d:.34s">2026</span>
+    </h1>
+    <p class="subtitle rv-l" style="--d:.5s">Astronomy<i>×</i>Robotics<i>×</i>Technology<i>×</i>Humanity</p>
+    <p class="tagline mono rv-l" style="--d:.62s">Explore&nbsp;.&nbsp;Decode&nbsp;.&nbsp;Engineer&nbsp;.</p>
+    <div class="hero-cta rv-l" style="--d:.74s">
+      <a href="#" class="btn btn-c btn-l js-gform">Register Now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      <a href="#mission" class="btn btn-g btn-l">Explore the Mission</a>
+    </div>
+    <div class="strip mono rv-l" style="--d:.86s" role="status">
+      <span><b>10 OCT</b> 2026</span><span><b>09:00</b> IST</span><span>TEAM OF <b>02</b></span><span><b>25</b> TEAMS MAX</span>
+    </div>
+  </div>
+  <a class="scroll-cue mono" href="#mission" aria-label="Scroll to mission brief">SCROLL
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+  </a>
+</section>
+
+<!-- ============ MISSION INTRO ============ -->
+<section id="mission" aria-labelledby="missionH">
+  <div class="wrap">
+    <div class="rv">
+      <span class="kick">01 // Mission Brief</span>
+      <h2 id="missionH">What is Astraethos?</h2>
+    </div>
+    <div class="mission-grid">
+      <div class="rv" style="--d:.1s">
+        <p class="statement">ASTRAETHOS 2026 brings <b>astronomy</b>, <em>robotics</em> and <b>social technology</b> together in a three-phase challenge. Think beyond the obvious. Decode the unknown. <em>Engineer for humanity.</em></p>
+        <div class="chips">
+          <span class="chip"><i></i>ASTRONOMY</span>
+          <span class="chip"><i></i>ROBOTICS</span>
+          <span class="chip"><i></i>SSIT</span>
+          <span class="chip"><i></i>HUMANITY</span>
+        </div>
+      </div>
+      <div class="orbit-panel rv" style="--d:.2s" aria-hidden="true">
+        <svg viewBox="0 0 480 480">
+          <circle class="o-ring" cx="240" cy="240" r="196" stroke="rgba(125,175,225,.18)" stroke-width="1"/>
+          <circle class="o-ring" cx="240" cy="240" r="148" stroke="rgba(125,175,225,.25)" stroke-width="1" stroke-dasharray="3 9"/>
+          <circle class="o-ring" cx="240" cy="240" r="100" stroke="rgba(25,211,255,.3)" stroke-width="1"/>
+          <g class="o-rot" style="--sp:46s"><circle class="o-node" cx="240" cy="44" r="6" fill="#8A5CFF" color="#8A5CFF"/></g>
+          <g class="o-rot rev" style="--sp:32s"><circle class="o-node" cx="240" cy="92" r="5" fill="#19D3FF" color="#19D3FF"/></g>
+          <g class="o-rot" style="--sp:22s"><circle class="o-node" cx="240" cy="140" r="4" fill="#F4F8FF" color="#F4F8FF"/></g>
+          <circle class="o-core" cx="240" cy="240" r="13"/>
+          <circle cx="240" cy="240" r="30" fill="none" stroke="rgba(25,211,255,.35)" stroke-width="1" stroke-dasharray="4 7"/>
+          <text class="o-lab" x="240" y="318" text-anchor="middle">ONE MISSION · THREE PHASES</text>
+          <text class="o-lab" x="240" y="342" text-anchor="middle" fill="#5C718F">370 PTS · 25 CREWS</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COUNTDOWN + STATS ============ -->
+<section id="data" aria-labelledby="dataH">
+  <div class="wrap">
+    <div class="sec-head rv" style="text-align:center">
+      <span class="kick" style="justify-content:center">02 // Mission Data</span>
+      <h2 id="dataH">T-Minus to Launch</h2>
+      <p class="lede" style="margin-inline:auto">Opening briefing at 09:00 IST, 10 October 2026. The clock below is live — the mission does not wait.</p>
+    </div>
+    <div class="cd-row rv" style="--d:.1s" role="timer" aria-label="Countdown to event">
+      <div class="cd glass"><b id="cdD">00</b><span>DAYS</span></div>
+      <div class="cd glass"><b id="cdH">00</b><span>HOURS</span></div>
+      <div class="cd glass"><b id="cdM">00</b><span>MINUTES</span></div>
+      <div class="cd glass"><b id="cdS">00</b><span>SECONDS</span></div>
+    </div>
+    <p class="cd-status mono rv" style="--d:.2s"><i></i><span id="cdStatus">REGISTRATION OPEN — COUNTING DOWN TO HATCH</span></p>
+    <div class="stats">
+      <div class="stat glass rv" style="--d:.05s"><span class="idx">S·01</span><b data-target="3" data-pad="2">00</b><span>Mission Phases</span></div>
+      <div class="stat glass rv" style="--d:.1s"><span class="idx">S·02</span><b data-target="20">00</b><span>Quiz Questions</span></div>
+      <div class="stat glass rv" style="--d:.15s"><span class="idx">S·03</span><b data-target="12">00</b><span>Visual Puzzles</span></div>
+      <div class="stat glass rv" style="--d:.2s"><span class="idx">S·04</span><b data-target="370">00</b><span>Total Possible Points</span></div>
+      <div class="stat glass rv" style="--d:.25s"><span class="idx">S·05</span><b data-target="2" data-pad="2">00</b><span>Members / Team</span></div>
+      <div class="stat glass rv" style="--d:.3s"><span class="idx">S·06</span><b data-target="25">00</b><span>Maximum Teams</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHASES ============ -->
+<section id="phases" aria-labelledby="phasesH">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kick">03 // Mission Modules</span>
+      <h2 id="phasesH">The Three Phases</h2>
+      <p class="lede">Every crew flies every phase. Scores are cumulative across all 370 points. Open a module for full mission parameters.</p>
+    </div>
+    <div class="phases-grid">
+      <article class="ph ph-a glass rv" style="--d:.05s" data-phase="A" tabindex="0" role="button" aria-label="Phase A — Cosmic Intelligence. View mission details.">
+        <span class="ph-letter" aria-hidden="true">A</span>
+        <span class="ph-tag">Module A · The Quiz</span>
+        <div class="ph-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.83 1c0 2-3 2.6-3 4"/><circle cx="12" cy="17.5" r=".6" fill="currentColor"/></svg></div>
+        <h3>Cosmic Intelligence</h3>
+        <p class="one">The Astronomy, Robotics &amp; SSIT Quiz — 20 written questions, 3 points each. Know the sky, know the machine, know the society it serves.</p>
+        <div class="ph-meta"><span><b>TIME</b> 09:10–10:15</span><span><b>MAX</b> 60 PTS</span></div>
+        <span class="pm">View Mission <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </article>
+      <article class="ph ph-b glass rv" style="--d:.15s" data-phase="B" tabindex="0" role="button" aria-label="Phase B — Mission Decode. View mission details.">
+        <span class="ph-letter" aria-hidden="true">B</span>
+        <span class="ph-tag">Module B · Visual Puzzles</span>
+        <div class="ph-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Mission Decode</h3>
+        <p class="one">The Cosmic Visual Puzzle Challenge — Tier 1, 2 and 3 rebus puzzles where one image hides a whole idea. 12 puzzles, 210 points.</p>
+        <div class="ph-meta"><span><b>TIME</b> 10:30–11:30</span><span><b>MAX</b> 210 PTS</span></div>
+        <span class="pm">View Mission <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </article>
+      <article class="ph ph-c glass rv" style="--d:.25s" data-phase="C" tabindex="0" role="button" aria-label="Phase C — Rover for Humanity. View mission details.">
+        <span class="ph-letter" aria-hidden="true">C</span>
+        <span class="ph-tag">Module C · Concept + Pitch</span>
+        <div class="ph-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="10" width="18" height="6" rx="2"/><circle cx="7.5" cy="18" r="1.8"/><circle cx="16.5" cy="18" r="1.8"/><path d="M12 10V5"/><circle cx="12" cy="4" r="1"/></svg></div>
+        <h3>Rover for Humanity</h3>
+        <p class="one">Design a rover concept that solves a real human or societal problem — then pitch it in minutes. No prototype. No code. Pure engineering thinking.</p>
+        <div class="ph-meta"><span><b>TIME</b> 11:30–12:10</span><span><b>MAX</b> 100 PTS</span></div>
+        <span class="pm">View Mission <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section id="timeline" aria-labelledby="tlH">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kick">04 // Flight Plan</span>
+      <h2 id="tlH">Event-Day Timeline</h2>
+      <p class="lede">Saturday, 10 October 2026 — one tight four-hour flight from hatch to mission complete, at Gallery Hall (Room No: 1601).</p>
+    </div>
+    <div class="tl-wrap rv" id="tlWrap" style="--d:.1s">
+      <div class="tl-line"><i id="tlFill"></i></div>
+      <ol class="tl" id="tl">
+        <li class="tl-item"><span class="tt mono">08:30</span><span class="dot"></span><span class="tl-label">Registration</span></li>
+        <li class="tl-item"><span class="tt mono">09:00</span><span class="dot"></span><span class="tl-label">Opening / Briefing</span></li>
+        <li class="tl-item t-a"><span class="tt mono">09:10</span><span class="dot"></span><span class="tl-label">Phase A Begins</span></li>
+        <li class="tl-item t-a"><span class="tt mono">10:15</span><span class="dot"></span><span class="tl-label">Phase A Ends</span></li>
+        <li class="tl-item t-b"><span class="tt mono">10:30</span><span class="dot"></span><span class="tl-label">Phase B Begins</span></li>
+        <li class="tl-item t-c"><span class="tt mono">11:30</span><span class="dot"></span><span class="tl-label">Phase C Begins</span></li>
+        <li class="tl-item"><span class="tt mono">12:10</span><span class="dot"></span><span class="tl-label">Results</span></li>
+        <li class="tl-item"><span class="tt mono">12:20</span><span class="dot"></span><span class="tl-label">Prizes &amp; Certificates</span></li>
+        <li class="tl-item"><span class="tt mono">12:28</span><span class="dot"></span><span class="tl-label">Group Photo / Closing</span></li>
+        <li class="tl-item"><span class="tt mono">12:30</span><span class="dot"></span><span class="tl-label">Mission Complete</span></li>
+      </ol>
+      <div class="tl-note">
+        <span><i style="background:#5C718F"></i>GROUND OPS</span>
+        <span><i style="background:var(--cyan)"></i>PHASE A</span>
+        <span><i style="background:var(--violet)"></i>PHASE B</span>
+        <span><i style="background:var(--ice)"></i>PHASE C</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REGISTRATION ============ -->
+<section id="register" aria-labelledby="regH">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kick">05 // Crew Sign-Up</span>
+      <h2 id="regH">Ready to Enter the Mission?</h2>
+      <p class="lede">Registration runs through the official Google Form — the Register button at the top of this page, the one below and the one in the footer all open the same form. Twenty-five crews, first come, first served.</p>
+    </div>
+    <div class="reg-grid">
+      <aside class="reg-info rv" style="--d:.1s">
+        <div class="reg-chips">
+          <span>TEAM SIZE — <b>02</b></span>
+          <span>MAX TEAMS — <b>25</b></span>
+          <span>EVENT — <b>10 OCT 2026</b></span>
+        </div>
+        <div>
+          <div class="slots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="slots-cap">25 CREW SLOTS · FIRST COME, FIRST SERVED</p>
+        </div>
+        <div class="qr-card glass">
+          <div id="qr" aria-label="QR code linking to the registration Google Form"></div>
+          <p class="qr-t">Scan to Register<small>Point your phone's camera here — it opens the official Google Form directly.</small></p>
+        </div>
+      </aside>
+      <div class="reg-right rv" style="--d:.18s">
+        <div class="form-card glass">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>Official Registration — Google Form</h3>
+          <p class="gform-lede">Fill in both crew members — name, department, year and contact — on the form. It takes about two minutes. Slots are confirmed by the mission team over email or phone.</p>
+          <div class="gform-actions">
+            <a class="btn btn-c btn-l js-gform" href="#">Open the Google Form
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          </div>
+          <p class="gform-note2">Opens in a new tab · One submission per team</p>
+          <ul class="gform-points">
+            <li>TEAM OF 2 — BOTH MEMBERS LISTED ON THE FORM</li>
+            <li>25 TEAMS MAX — FIRST COME, FIRST SERVED</li>
+            <li>EVENT DAY — 10 OCT 2026 · 09:00 IST · GALLERY HALL (1601)</li>
+            <li>CONFIRMATION — VIA EMAIL / PHONE BY MISSION CONTROL</li>
+          </ul>
+        </div>
+        <details class="alt-console glass">
+          <summary>Alternative — quick email console <span class="alt-tag">OPTIONAL</span></summary>
+          <div class="alt-body">
+            <form id="regForm" novalidate>
+              <div class="fld"><label for="fTeam">Team Name</label><input id="fTeam" type="text" placeholder="e.g. TEAM VOYAGER" autocomplete="off"></div>
+              <fieldset>
+                <legend>Crew Member 01</legend>
+                <div class="f2">
+                  <div class="fld"><label for="r1name">Full Name</label><input id="r1name" type="text" placeholder="Name" autocomplete="name"></div>
+                  <div class="fld"><label for="r1contact">Contact No.</label><input id="r1contact" type="tel" placeholder="10-digit mobile" autocomplete="tel"></div>
+                  <div class="fld"><label for="r1dept">Department</label><input id="r1dept" type="text" placeholder="e.g. CSE, ECE, MECH"></div>
+                  <div class="fld"><label for="r1year">Year</label><select id="r1year"><option>I Year</option><option>II Year</option><option>III Year</option><option>IV Year</option><option>P.G.</option></select></div>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Crew Member 02</legend>
+                <div class="f2">
+                  <div class="fld"><label for="r2name">Full Name</label><input id="r2name" type="text" placeholder="Name"></div>
+                  <div class="fld"><label for="r2contact">Contact No.</label><input id="r2contact" type="tel" placeholder="10-digit mobile"></div>
+                  <div class="fld"><label for="r2dept">Department</label><input id="r2dept" type="text" placeholder="e.g. CSE, ECE, MECH"></div>
+                  <div class="fld"><label for="r2year">Year</label><select id="r2year"><option>I Year</option><option>II Year</option><option>III Year</option><option>IV Year</option><option>P.G.</option></select></div>
+                </div>
+              </fieldset>
+              <div class="f2">
+                <div class="fld"><label for="fMail">Team Email</label><input id="fMail" type="email" placeholder="crew@college.edu" autocomplete="email"></div>
+                <div class="fld"><label for="fInst">Institution <span style="color:var(--dim2)">(optional)</span></label><input id="fInst" type="text" placeholder="Vel Tech"></div>
+              </div>
+              <div class="form-foot">
+                <button type="submit" class="btn btn-c btn-l" style="justify-content:center">Compile Registration Email
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></svg></button>
+                <p class="form-note">Transmitting opens a pre-filled registration email to mission control (ieeessitsbveltect@gmail.com). For the official route, use the Google Form above.</p>
+              </div>
+            </form>
+            <div class="form-card glass" id="regDone" role="status" style="padding:clamp(22px,3vw,32px)">
+              <div class="done-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <h3>Registration Packet Ready</h3>
+              <p>Transmission compiled. Send it to mission control to claim your slot.</p>
+              <ul id="sumList"></ul>
+              <div class="done-actions">
+                <a class="btn btn-c" id="doneMail" href="#">Send via Email
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></svg></a>
+                <button class="btn btn-g" id="doneEdit" type="button">Edit Details</button>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RULES ============ -->
+<section id="rules" aria-labelledby="rulesH">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kick">06 // Protocol</span>
+      <h2 id="rulesH">Rules &amp; Participant Guide</h2>
+      <p class="lede">Short, strict, and fair. Read once before launch day — the mission runs on these.</p>
+    </div>
+    <div class="rules-grid">
+      <div class="rule-card glass rv" style="--d:.05s">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4Z"/><path d="M9 12l2 2 4-4"/></svg>Rules of Engagement</h3>
+        <ul class="rule-list">
+          <li><b>R·01</b>Teams of exactly 2 members.</li>
+          <li><b>R·02</b>Maximum 25 teams / 50 participants on the roster.</li>
+          <li><b>R·03</b>Every team participates in every phase — no phase-skipping.</li>
+          <li><b>R·04</b>All answers are submitted from the team's seat; no buzzers.</li>
+          <li><b>R·05</b>Scores are cumulative across all three phases.</li>
+          <li><b>R·06</b>Phase A: 20 written questions × 3 points each.</li>
+          <li><b>R·07</b>Phase B: written answers to visual-puzzle rebus sets.</li>
+          <li><b>R·08</b>Phase C: rover concept sheet + rapid pitch.</li>
+          <li><b>R·09</b>No physical rover prototype or coding is required.</li>
+        </ul>
+      </div>
+      <div class="rule-card tie glass rv" style="--d:.15s">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/><circle cx="12" cy="12" r="3"/></svg>Tie-Breaker Protocol</h3>
+        <p style="color:var(--dim);font-size:14px;margin-bottom:6px">Applied in strict order until the tie is resolved:</p>
+        <ul class="rule-list">
+          <li><b>T·01</b>Higher Phase C score.</li>
+          <li><b>T·02</b>Higher Phase B total.</li>
+          <li><b>T·03</b>Higher Tier-3 puzzle subtotal in Phase B.</li>
+          <li><b>T·04</b>Higher Phase C pitch score.</li>
+          <li><b>T·05</b>Joint rank declared by the judges' panel.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="score-strip">
+      <div class="sc glass rv" style="--d:.05s"><b>A · 60</b><span>Quiz Points</span></div>
+      <div class="sc glass rv" style="--d:.1s"><b>B · 210</b><span>Puzzle Points</span></div>
+      <div class="sc glass rv" style="--d:.15s"><b>C · 100</b><span>Rover Points</span></div>
+      <div class="sc glass rv" style="--d:.2s"><b>Σ · 370</b><span>Total on the Line</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORGANIZER ============ -->
+<section id="organizer" aria-labelledby="orgH">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kick">07 // Mission Control</span>
+      <h2 id="orgH">Who's Flying This Thing</h2>
+    </div>
+    <div class="org-card glass rv" style="--d:.1s">
+      <div class="org-lock"><b>IEEE <i>SSIT</i></b><span>Student Branch Chapter — Vel Tech</span></div>
+      <p class="org-blurb">The IEEE Society on Social Implications of Technology Student Branch Chapter at Vel Tech studies how technology shapes society — and how students can steer it. ASTRAETHOS 2026 is its flagship mission: a three-phase challenge built to make you look up, decode what you see, and engineer for humanity.</p>
+      <div class="org-links">
+        <a href="https://www.veltech.edu.in" target="_blank" rel="noopener">Vel Tech University
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        <a href="https://www.ieee.org" target="_blank" rel="noopener">IEEE.org
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COORDINATORS + FAQ + CONTACT ============ -->
+<section id="contact" aria-labelledby="fcH">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kick">08 // Comms</span>
+      <h2 id="fcH">FAQ &amp; Contact</h2>
+      <p class="lede">Answers to what every crew asks before hatch — and the people to signal for anything else.</p>
+    </div>
+
+    <div class="coords-grid">
+      <article class="coord glass rv" style="--d:.04s">
+        <span class="coord-idx mono">C·01</span>
+        <h3>Dr. B. Sathyasri</h3>
+        <p class="coord-role">Event Coordinator</p>
+        <p class="coord-sub">Professor — Dept. of ECE</p>
+        <a class="coord-tel" href="tel:+919042288167">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+          +91 90422 88167</a>
+      </article>
+      <article class="coord glass rv" style="--d:.1s">
+        <span class="coord-idx mono">C·02</span>
+        <h3>S. Md. Afzal</h3>
+        <p class="coord-role">SSIT Chairman</p>
+        <p class="coord-sub">IEEE SSIT SBC — Vel Tech</p>
+        <a class="coord-tel" href="tel:+918639325955">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+          +91 863 932 5955</a>
+      </article>
+      <article class="coord glass rv" style="--d:.16s">
+        <span class="coord-idx mono">C·03</span>
+        <h3>B. Sai Manish</h3>
+        <p class="coord-role">Vice-Chairman</p>
+        <p class="coord-sub">IEEE SSIT SBC — Vel Tech</p>
+        <a class="coord-tel" href="tel:+918019364195">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+          +91 80193 64195</a>
+      </article>
+    </div>
+
+    <div class="fc-grid">
+      <div class="faq rv" style="--d:.08s">
+        <details>
+          <summary>How do we register?<span class="pmx" aria-hidden="true"></span></summary>
+          <p class="fa">Through the official Google Form — the Register button at the top of the page, the one in the Registration section and the one in the footer all open the same form. Fill in both crew members' details; your slot is confirmed by the mission team over email or phone.</p>
+        </details>
+        <details>
+          <summary>Do we need to build an actual robot?<span class="pmx" aria-hidden="true"></span></summary>
+          <p class="fa">No. Phase C is a pure design challenge — a rover concept sheet plus a rapid pitch. No prototype, no hardware, no coding required.</p>
+        </details>
+        <details>
+          <summary>Who can participate?<span class="pmx" aria-hidden="true"></span></summary>
+          <p class="fa">Any student team of exactly two members, from any department and any year. Cross-department crews are encouraged — the best rovers need more than one discipline.</p>
+        </details>
+        <details>
+          <summary>What should we bring on event day?<span class="pmx" aria-hidden="true"></span></summary>
+          <p class="fa">A pen and your sharpest pattern recognition. Answer sheets, puzzle packs and briefing materials are provided at registration. Reach Gallery Hall (Room No: 1601) by 08:30 for check-in.</p>
+        </details>
+        <details>
+          <summary>Is there a registration fee?<span class="pmx" aria-hidden="true"></span></summary>
+          <p class="fa">No fee. Slots are capped at 25 teams and fill on a first-come, first-served basis — transmit early.</p>
+        </details>
+        <details>
+          <summary>Can we choose our phase timings?<span class="pmx" aria-hidden="true"></span></summary>
+          <p class="fa">No. The mission runs on a fixed flight plan. Every team competes in every phase at the scheduled time.</p>
+        </details>
+        <details>
+          <summary>How are ties resolved?<span class="pmx" aria-hidden="true"></span></summary>
+          <p class="fa">By the five-step Tie-Breaker Protocol listed in the Rules section — applied in strict order by the judges' panel.</p>
+        </details>
+      </div>
+      <div class="contact-card glass rv" style="--d:.16s">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1A10 10 0 1 1 19.1 4.9M7.8 16.2a6 6 0 1 1 8.4 0"/><circle cx="12" cy="12" r="2"/></svg>Mission Control</h3>
+        <div class="c-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <p><b>Email</b><br><a href="mailto:ieeessitsbveltect@gmail.com">ieeessitsbveltect@gmail.com</a></p>
+        </div>
+        <div class="c-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <p><b>Venue</b><br>Gallery Hall (Room No: 1601)<br>Department of Electronics and Communication Engineering<br>Vel Tech University, Avadi, Chennai</p>
+        </div>
+        <div class="c-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <p><b>Event Day</b><br>Saturday, 10 October 2026 · 09:00 – 12:30 IST · Check-in from 08:30</p>
+        </div>
+        <div class="c-cta">
+          <a class="btn btn-v" href="mailto:ieeessitsbveltect@gmail.com?subject=ASTRAETHOS%202026%20%E2%80%94%20Crew%20Query">Email Mission Control
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="ft wrap">
+    <p class="ft-mark">
+      <svg width="26" height="26" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="6" fill="#19D3FF"/><ellipse cx="20" cy="20" rx="17" ry="6.5" fill="none" stroke="#8A5CFF" stroke-width="1.6" transform="rotate(-22 20 20)"/><circle cx="33.5" cy="13.5" r="2.2" fill="#19D3FF"/></svg>
+      ASTRAETHOS<b>2026</b>
+    </p>
+    <p class="ft-tag">Explore . Decode . Engineer .</p>
+    <p class="ft-org">IEEE SSIT Student Branch Chapter — Vel Tech · 10 October 2026 · 09:00–12:30 IST</p>
+    <div class="ft-cta">
+      <p class="ft-cta-t">Ready to enter the mission?</p>
+      <a class="btn btn-c btn-l js-gform" href="#">Register — Google Form
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+      <p class="ft-cta-s">TEAM OF 2 · 25 TEAMS MAX · FIRST COME, FIRST SERVED</p>
+    </div>
+    <nav class="ft-links" aria-label="Footer">
+      <a href="#mission">Mission</a><a href="#phases">Phases</a><a href="#timeline">Timeline</a>
+      <a href="#rules">Rules</a><a href="#" class="js-gform">Register</a><a href="#contact">Contact</a>
+    </nav>
+    <p class="ft-mail">Crew queries → <a href="mailto:ieeessitsbveltect@gmail.com">ieeessitsbveltect@gmail.com</a></p>
+    <div class="ft-base">
+      <span>MISSION CONTROL • ASTRAETHOS 2026</span>
+      <span>IEEE SSIT SBC — VEL TECH</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ PHASE OVERLAY ============ -->
+<div id="ovl" role="dialog" aria-modal="true" aria-labelledby="ovlTitle">
+  <div class="ov-bg" data-close></div>
+  <div class="ov-panel glass" id="ovlPanel">
+    <button class="ov-close" data-close aria-label="Close mission details">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div id="ovlBody"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ============================================================
+   OFFICIAL REGISTRATION LINK — LIVE ✅
+   Every Register button (header, hero, section, footer) and the
+   QR code read from this single link.
+============================================================ */
+const GOOGLE_FORM_URL='https://docs.google.com/forms/d/e/1FAIpQLSfcPzPuQ7Vra7tEdjPC-OnNgPhcSMDewsfn6ulWhpxqS1qX3Q/viewform';
+/* ============================================================ */
+const formReady=/^https:\/\/(forms\.gle|docs\.google\.com)\//i.test(GOOGLE_FORM_URL);
+
+const $=(s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- toast ---------- */
+function toast(msg){
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  $('#toasts').appendChild(t);
+  requestAnimationFrame(()=>t.classList.add('on'));
+  setTimeout(()=>{t.classList.remove('on');setTimeout(()=>t.remove(),400)},3200);
+}
+
+/* ---------- favicon (inline, no request) ---------- */
+const fav=document.createElement('link');fav.rel='icon';
+fav.href='data:image/svg+xml;utf8,'+encodeURIComponent(
+"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='#050B14'/><circle cx='32' cy='32' r='9' fill='#19D3FF'/><ellipse cx='32' cy='32' rx='26' ry='10' fill='none' stroke='#8A5CFF' stroke-width='2.5' transform='rotate(-22 32 32)'/></svg>");
+document.head.appendChild(fav);
+
+/* ---------- Google Form wiring (one link, everywhere) ---------- */
+ $$('a.js-gform').forEach(a=>{
+  if(formReady){
+    a.href=GOOGLE_FORM_URL;
+    a.target='_blank';
+    a.rel='noopener';
+  }else{
+    a.href='#register';
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      const r=document.getElementById('register');
+      if(r)r.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});
+      toast('ONLINE FORM LINK PENDING — USE THE QUICK CONSOLE BELOW');
+    });
+  }
+});
+
+/* ---------- header / mobile menu ---------- */
+const hd=$('#hd'),burger=$('#burger');
+burger.addEventListener('click',()=>{
+  const open=document.body.classList.toggle('menu-open');
+  burger.setAttribute('aria-expanded',open);
+  burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+});
+ $$('#mnav a').forEach(a=>a.addEventListener('click',()=>{
+  document.body.classList.remove('menu-open');burger.setAttribute('aria-expanded','false');
+}));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('menu-open')){document.body.classList.remove('menu-open');burger.setAttribute('aria-expanded','false');}});
+
+/* ---------- starfield (parallax + cursor-reactive) ---------- */
+const cvs=$('#stars'),ctx=cvs.getContext('2d');
+let stars=[],W=0,H=0,ptr={x:0,y:0,tx:0,ty:0},rafId=null;
+function seed(){
+  const dpr=Math.min(2,devicePixelRatio||1);
+  W=innerWidth;H=innerHeight;
+  cvs.width=W*dpr;cvs.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+  const n=reduced?120:Math.min(230,Math.round(W*H/8500));
+  stars=Array.from({length:n},()=>{
+    const r=Math.random();
+    return{x:Math.random()*W,y:Math.random()*H,z:.3+Math.random()*.7,
+      s:r<.85?(.6+Math.random()*1.1):(1.4+Math.random()*1.4),
+      ph:Math.random()*6.28,sp:.4+Math.random()*1.2,
+      c:r<.8?'#F4F8FF':(r<.93?'#19D3FF':'#8A5CFF')};
+  });
+}
+function draw(t){
+  ctx.clearRect(0,0,W,H);
+  ptr.x+=(ptr.tx-ptr.x)*.05;ptr.y+=(ptr.ty-ptr.y)*.05;
+  const sy=scrollY;
+  for(const s of stars){
+    const yy=(((s.y-sy*s.z*.14)%H)+H)%H;
+    const a=(.35+.65*s.z)*(.55+.45*Math.sin(t*.001*s.sp+s.ph));
+    ctx.globalAlpha=a;
+    ctx.fillStyle=s.c;
+    ctx.beginPath();
+    ctx.arc(s.x+ptr.x*s.z*14,yy+ptr.y*s.z*8,s.s,0,6.2832);
+    ctx.fill();
+  }
+  ctx.globalAlpha=1;
+}
+function loop(t){draw(t);rafId=requestAnimationFrame(loop);}
+seed();
+if(reduced){draw(0);}
+else{
+  rafId=requestAnimationFrame(loop);
+  addEventListener('pointermove',e=>{ptr.tx=e.clientX/W-.5;ptr.ty=e.clientY/H-.5;},{passive:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden){cancelAnimationFrame(rafId);rafId=null;}
+    else if(!rafId){rafId=requestAnimationFrame(loop);}
+  });
+}
+addEventListener('resize',()=>{seed();if(reduced)draw(0);});
+
+/* ---------- unified scroll handler ---------- */
+const heroIn=$('#heroIn'),tlWrap=$('#tlWrap'),tlItems=$$('#tl .tl-item');
+let ticking=false;
+function onScroll(){
+  const y=scrollY,vh=innerHeight;
+  hd.classList.toggle('scrolled',y>12);
+  if(!reduced&&y<vh*1.2)heroIn.style.transform='translate3d(0,'+(y*-.1).toFixed(1)+'px,0)';
+  /* timeline progress */
+  const r=tlWrap.getBoundingClientRect();
+  const p=clamp((vh*.85-r.top)/(r.height+vh*.5),0,1);
+  tlWrap.style.setProperty('--p',(p*100).toFixed(1)+'%');
+  tlItems.forEach((li,i)=>li.classList.toggle('lit',i/(tlItems.length-1)<=p+.001));
+}
+addEventListener('scroll',()=>{
+  if(ticking)return;ticking=true;
+  requestAnimationFrame(()=>{onScroll();ticking=false;});
+},{passive:true});
+onScroll();
+
+/* ---------- reveal on scroll ---------- */
+const rvIO=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');rvIO.unobserve(e.target);}
+}),{threshold:.14});
+ $$('.rv').forEach(el=>rvIO.observe(el));
+
+/* ---------- scrollspy ---------- */
+const spyIO=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    $$('#nv a').forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+e.target.id));
+  }
+}),{rootMargin:'-40% 0px -55% 0px'});
+['mission','phases','timeline','rules','contact'].forEach(id=>{
+  const s=document.getElementById(id);if(s)spyIO.observe(s);
+});
+
+/* ---------- live IST clock ---------- */
+const fmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+function tickClock(){$('#hudClock').textContent=fmt.format(new Date());}
+tickClock();setInterval(tickClock,1000);
+
+/* ---------- countdown + mission status ---------- */
+const T0=Date.parse('2026-10-10T09:00:00+05:30');
+const T1=Date.parse('2026-10-10T12:30:00+05:30');
+const pad=n=>String(n).padStart(2,'0');
+function tickCD(){
+  const now=Date.now(),d=T0-now;
+  let status,label;
+  if(d>0){status='open';}
+  else if(now<T1){status='running';}
+  else{status='done';}
+  if(status==='open'){
+    const s=Math.floor(d/1000);
+    $('#cdD').textContent=pad(Math.floor(s/86400));
+    $('#cdH').textContent=pad(Math.floor(s/3600)%24);
+    $('#cdM').textContent=pad(Math.floor(s/60)%60);
+    $('#cdS').textContent=pad(s%60);
+    label='REGISTRATION OPEN — COUNTING DOWN TO HATCH';
+  }else if(status==='running'){
+    $('#cdD').textContent='00';$('#cdH').textContent='00';$('#cdM').textContent='00';$('#cdS').textContent='00';
+    label='MISSION IN PROGRESS — CREWS ON THE FLOOR';
+  }else{
+    $('#cdD').textContent='00';$('#cdH').textContent='00';$('#cdM').textContent='00';$('#cdS').textContent='00';
+    label='MISSION COMPLETE — SEE YOU IN THE NEXT ORBIT';
+  }
+  $('#cdStatus').textContent=label;
+  $('#rsTop').textContent=status==='open'?'REGISTRATION OPEN':'REGISTRATION CLOSED';
+}
+tickCD();setInterval(tickCD,1000);
+
+/* ---------- stat counters (count up once) ---------- */
+function countUp(el){
+  const target=+el.dataset.target,padN=+(el.dataset.pad||0),t0=performance.now(),D=1400;
+  if(reduced){el.textContent=padN?String(target).padStart(padN,'0'):target;return;}
+  const step=t=>{
+    const k=clamp((t-t0)/D,0,1),e=1-Math.pow(1-k,3),v=Math.round(target*e);
+    el.textContent=padN?String(v).padStart(padN,'0'):v;
+    if(k<1)requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const stIO=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){countUp(e.target);stIO.unobserve(e.target);}
+}),{threshold:.5});
+ $$('.stat b').forEach(el=>stIO.observe(el));
+
+/* ---------- phase overlay ---------- */
+const PHASES={
+ A:{pc:'#19D3FF',letter:'A',tag:'Module A · The Quiz',name:'Cosmic Intelligence',
+   meta:[['TIME','09:10 – 10:15 IST'],['DURATION','65 MIN'],['MAX SCORE','60 PTS'],['FORMAT','WRITTEN · AT SEAT']],
+   desc:['The Astronomy, Robotics & SSIT Quiz. Twenty written questions across the sky, the machine and the society they serve — three points each, one attempt, sixty-five minutes.',
+         'Answer sheets are submitted from your seat. No buzzers, no races — only accuracy.'],
+   list:['20 written questions · 3 points each','Domains: astronomy, robotics, technology & society','All answers written and submitted from the team seat','65 minutes, single attempt'],
+   bars:[['Astronomy','8 Q × 3 PTS',24,60],['Robotics','6 Q × 3 PTS',18,60],['SSIT & Tech-Society','6 Q × 3 PTS',18,60]],
+   note:'Sixty points are live from the very first minute. A calm start compounds across the whole mission.'},
+ B:{pc:'#8A5CFF',letter:'B',tag:'Module B · Visual Puzzles',name:'Mission Decode',
+   meta:[['TIME','10:30 – 11:30 IST'],['DURATION','60 MIN'],['MAX SCORE','210 PTS'],['FORMAT','WRITTEN · AT SEAT']],
+   desc:['The Cosmic Visual Puzzle Challenge. Twelve visual rebus puzzles across three escalating tiers — one image hides one idea, and your crew writes down what it sees.',
+         'Insight beats vocabulary: spelling matters less than the decode. Tier 3 solutions earn partial credit for defensible reasoning.'],
+   list:['12 visual rebus puzzles across Tier 1 / 2 / 3','Difficulty and point value escalate per tier','Written answers from the team seat','60 minutes — manage the tier climb wisely'],
+   bars:[['Tier 1','6 puzzles × 10 PTS',60,210],['Tier 2','4 puzzles × 20 PTS',80,210],['Tier 3','2 puzzles × 35 PTS',70,210]],
+   note:'Tier 3 alone is worth 70 points. Crews that bank Tier 1 quickly buy time for the deep decodes.'},
+ C:{pc:'#F4F8FF',letter:'C',tag:'Module C · Concept + Pitch',name:'Rover for Humanity',
+   meta:[['TIME','11:30 – 12:10 IST'],['DURATION','40 MIN'],['MAX SCORE','100 PTS'],['FORMAT','SHEET + RAPID PITCH']],
+   desc:['The space robotics design challenge with a human orbit: design a rover concept that solves a real human or societal problem — water access, disaster response, agriculture, accessibility, anything worth engineering.',
+         'No prototype. No code. A concept sheet and a rapid pitch in front of the judges.'],
+   list:['Design a rover concept for a real human problem','40 minutes: concept sheet + rapid pitch','No physical prototype or coding required','Judged live by the panel'],
+   bars:[['Problem relevance','judged',25,100],['Engineering feasibility','judged',30,100],['Innovation','judged',25,100],['Pitch clarity','judged',20,100]],
+   note:'The strongest concepts are specific: one real problem, one credible mechanism, one clear delivery.'}
+};
+const ovl=$('#ovl'),ovlBody=$('#ovlBody'),ovlPanel=$('#ovlPanel');
+function barsHTML(bars){
+  return '<div class="sbar">'+bars.map(b=>
+    '<div class="sr"><span>'+b[0]+' <span style="opacity:.6">· '+b[1]+'</span></span><b>'+b[2]+' PTS</b>'+
+    '<span class="bar"><i style="width:'+(b[2]/b[3]*100).toFixed(0)+'%"></i></span></div>').join('')+'</div>';
+}
+function openPhase(key){
+  const p=PHASES[key];if(!p)return;
+  ovlPanel.style.setProperty('--pc',p.pc);
+  ovlBody.innerHTML=
+   '<div class="ov-head"><span class="ov-letter" aria-hidden="true">'+p.letter+'</span>'+
+   '<div><p class="ov-kick">'+p.tag+'</p><h3 id="ovlTitle">'+p.name+'</h3></div></div>'+
+   '<div class="ov-meta">'+p.meta.map(m=>'<span>'+m[0]+' — <b>'+m[1]+'</b></span>').join('')+'</div>'+
+   '<div class="ov-desc">'+p.desc.map(d=>'<p>'+d+'</p>').join('')+'</div>'+
+   '<p class="ov-sub">Mission Parameters</p><ul class="ov-list">'+p.list.map(l=>'<li>'+l+'</li>').join('')+'</ul>'+
+   '<p class="ov-sub">Scoring Breakdown</p>'+barsHTML(p.bars)+
+   '<p class="ov-note">▸ '+p.note+'</p>';
+  ovl.classList.add('open');
+  document.body.style.overflow='hidden';
+  $('.ov-close',ovl).focus();
+}
+function closePhase(){
+  ovl.classList.remove('open');
+  document.body.style.overflow='';
+}
+ $$('.ph').forEach(card=>{
+  card.addEventListener('click',()=>openPhase(card.dataset.phase));
+  card.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();openPhase(card.dataset.phase);}
+  });
+});
+ $$('[data-close]',ovl).forEach(el=>el.addEventListener('click',closePhase));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&ovl.classList.contains('open'))closePhase();});
+
+/* ---------- quick email console (alternative path) ---------- */
+const MAIL='ieeessitsbveltect@gmail.com';
+const form=$('#regForm'),done=$('#regDone');
+const fields=['fTeam','r1name','r1contact','r2name','r2contact','fMail'];
+fields.forEach(id=>{
+  const el=document.getElementById(id);
+  el.addEventListener('input',()=>el.classList.remove('err'));
+});
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  let bad=false;
+  fields.forEach(id=>{
+    const el=document.getElementById(id);
+    let ok=el.value.trim().length>0;
+    if(id==='fMail'&&ok)ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+    if(id.startsWith('r')&&id.endsWith('contact')&&ok)ok=/^[+\d][\d\s-]{7,14}$/.test(el.value.trim());
+    el.classList.toggle('err',!ok);
+    if(!ok)bad=true;
+  });
+  if(bad){toast('TRANSMISSION ERROR — CHECK HIGHLIGHTED FIELDS');return;}
+  const v=id=>document.getElementById(id).value.trim();
+  const data={
+    team:v('fTeam'),mail:v('fMail'),inst:v('fInst')||'—',
+    p1:v('r1name'),p1c:v('r1contact'),p1d:v('r1dept'),p1y:$('#r1year').value,
+    p2:v('r2name'),p2c:v('r2contact'),p2d:v('r2dept'),p2y:$('#r2year').value
+  };
+  $('#sumList').innerHTML=[
+    ['TEAM',data.team],['CREW 01',data.p1+' · '+data.p1d+' · '+data.p1y],
+    ['CREW 02',data.p2+' · '+data.p2d+' · '+data.p2y],
+    ['EMAIL',data.mail],['INSTITUTION',data.inst]
+  ].map(r=>'<li><span>'+r[0]+'</span><b>'+r[1].replace(/</g,'&lt;')+'</b></li>').join('');
+  const body='ASTRAETHOS 2026 — TEAM REGISTRATION%0A%0A'+
+    'Team Name: '+encodeURIComponent(data.team)+'%0A'+
+    'Team Email: '+encodeURIComponent(data.mail)+'%0A'+
+    'Institution: '+encodeURIComponent(data.inst)+'%0A%0A'+
+    'Crew 01: '+encodeURIComponent(data.p1)+' | '+encodeURIComponent(data.p1d)+' | '+encodeURIComponent(data.p1y)+' | '+encodeURIComponent(data.p1c)+'%0A'+
+    'Crew 02: '+encodeURIComponent(data.p2)+' | '+encodeURIComponent(data.p2d)+' | '+encodeURIComponent(data.p2y)+' | '+encodeURIComponent(data.p2c)+'%0A%0A'+
+    'Registered via astraethos page — please confirm our slot.';
+  $('#doneMail').href='mailto:'+MAIL+'?subject='+encodeURIComponent('ASTRAETHOS 2026 — Team Registration: '+data.team)+'&body='+body;
+  form.style.display='none';
+  done.classList.add('show');
+  done.scrollIntoView({behavior:reduced?'auto':'smooth',block:'center'});
+  toast('PACKET COMPILED — SEND IT TO CLAIM YOUR SLOT');
+});
+ $('#doneEdit').addEventListener('click',()=>{
+  done.classList.remove('show');
+  form.style.display='';
+  form.scrollIntoView({behavior:reduced?'auto':'smooth',block:'center'});
+});
+
+/* ---------- QR code (points to the Google Form) ---------- */
+const qrEl=$('#qr');
+if(window.QRCode){
+  try{
+    new QRCode(qrEl,{
+      text:formReady?GOOGLE_FORM_URL:(location.href.split('#')[0]+'#register'),
+      width:132,height:132,colorDark:'#050B14',colorLight:'#F4F8FF',
+      correctLevel:QRCode.CorrectLevel.M});
+  }catch(e){qrFallback();}
+}else{qrFallback();}
+function qrFallback(){
+  qrEl.innerHTML='<a href="#register" style="font:700 11px var(--mono);color:#050B14;text-decoration:none;letter-spacing:.1em">OPEN →</a>';
+}
+})();
+</script>
+</body>
+</html>
